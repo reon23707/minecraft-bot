@@ -1,4 +1,5 @@
 const axios = require('axios')
+const botName = process.env.BOT_NAME || 'Sandro'
 
 async function askAI(question) {
 
@@ -10,7 +11,7 @@ async function askAI(question) {
         model: 'qwen3:8b',
         stream: false,
         prompt: `
-Du bist sand_734289, ein hilfreicher Minecraft-Bot auf einem deutschen Minecraft-Server.
+Du bist ${botName}, ein hilfreicher Minecraft-Bot auf einem deutschen Minecraft-Server.
 
 Regeln:
 - Alle Fragen beziehen sich auf Minecraft.

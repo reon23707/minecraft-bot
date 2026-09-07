@@ -1,41 +1,23 @@
 module.exports = (bot) => {
-
   console.log('Inventory-Modul geladen')
 
-  bot.on('chat', (username, message) => {
+  bot.getInventorySummary = () => {
+    const items = bot.inventory.items()
 
-    if (username === bot.username) return
-
-    // Inventar anzeigen
-    if (message === '!inventar') {
-
-      const items = bot.inventory.items()
-
-      if (items.length === 0) {
-        bot.chat('Mein Inventar ist leer.')
-        return
-      }
-
-      const text = items
-        .map(item => `${item.name} (${item.count})`)
-        .join(', ')
-
-      bot.chat(text)
+    if (items.length === 0) {
+      return 'Mein Inventar ist leer.'
     }
 
-    // Gegenstand in der Hand anzeigen
-    if (message === '!hand') {
+    return items
+      .map(item => `${item.name} (${item.count})`)
+      .join(', ')
+  }
 
-      const item = bot.heldItem
-
-      if (!item) {
-        bot.chat('Ich halte nichts in der Hand.')
-        return
-      }
-
-      bot.chat(`Ich halte ${item.name} (${item.count}).`)
+  bot.getHeldItemSummary = () => {
+    if (!bot.heldItem) {
+      return 'Ich halte nichts in der Hand.'
     }
 
-  })
-
+    return `Ich halte ${bot.heldItem.name} (${bot.heldItem.count}).`
+  }
 }

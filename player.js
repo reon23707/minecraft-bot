@@ -1,29 +1,20 @@
 module.exports = (bot) => {
+  bot.getHealthSummary = () => {
+    return `Ich habe ${bot.health} HP.`
+  }
 
-  bot.on('chat', (username, message) => {
-    if (username === bot.username) return
+  bot.getExperienceSummary = () => {
+    return `Mein XP-Level ist ${bot.experience.level}.`
+  }
 
-    // Leben
-    if (message === '!hp') {
-      bot.chat(`Ich habe ${bot.health} HP`)
+  bot.getPlayersSummary = () => {
+    const players = Object.keys(bot.players)
+      .filter(name => name !== bot.username)
+
+    if (players.length === 0) {
+      return 'Keine Spieler gefunden.'
     }
 
-    // Erfahrung
-    if (message === '!xp') {
-      bot.chat(`Mein XP-Level ist ${bot.experience.level}`)
-    }
-
-    // Spieler in der Nähe
-    if (message === '!spieler') {
-      const players = Object.keys(bot.players)
-        .filter(name => name !== bot.username)
-
-      if (players.length === 0) {
-        bot.chat('Keine Spieler gefunden.')
-      } else {
-        bot.chat(`Spieler online: ${players.join(', ')}`)
-      }
-    }
-  })
-
+    return `Spieler online: ${players.join(', ')}`
+  }
 }
