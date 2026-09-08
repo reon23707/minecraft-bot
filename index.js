@@ -26,7 +26,6 @@ require('./player')(bot)
 require('./woodcutter')(bot)
 require('./mining')(bot)
 require('./storage')(bot)
-require('./autoeat')(bot)
 require('./home')(bot)
 
 bot.on('error', (error) => {

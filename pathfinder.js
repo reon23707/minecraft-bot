@@ -1,9 +1,11 @@
 const { pathfinder, Movements } = require('mineflayer-pathfinder')
 
 module.exports = (bot) => {
+
   bot.loadPlugin(pathfinder)
 
   bot.once('spawn', () => {
+
     const mcData = require('minecraft-data')(bot.version)
     const movements = new Movements(bot, mcData)
 
@@ -15,16 +17,18 @@ module.exports = (bot) => {
 
     bot.pathfinder.setMovements(movements)
 
+    bot.pathfinder.on('goal_reached', () => {
+      console.log('Navigationsziel erreicht.')
+    })
+
+    bot.pathfinder.on('path_update', (result) => {
+      if (result.status === 'noPath') {
+        console.log('Kein Weg zum Ziel gefunden.')
+      }
+    })
+
     console.log('Pathfinder geladen')
+
   })
 
-  bot.pathfinder.on('goal_reached', () => {
-    console.log('Navigationsziel erreicht.')
-  })
-
-  bot.pathfinder.on('path_update', (result) => {
-    if (result.status === 'noPath') {
-      console.log('Kein Weg zum Ziel gefunden.')
-    }
-  })
 }
