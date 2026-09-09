@@ -1,6 +1,5 @@
 const axios = require('axios')
 const botName = process.env.BOT_NAME || 'Sandro'
-
 async function askAI(question) {
 
   try {

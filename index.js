@@ -18,15 +18,23 @@ const bot = mineflayer.createBot({
   version: process.env.MC_VERSION || false
 })
 
+console.log('Mineflayer Version:', require('mineflayer/package.json').version)
+
 require('./login')(bot)
-require('./chat')(bot)
+
 require('./pathfinder')(bot)
+
 require('./inventory')(bot)
 require('./player')(bot)
-require('./woodcutter')(bot)
-require('./mining')(bot)
+
 require('./storage')(bot)
+require('./mining')(bot)
+require('./woodcutter')(bot)
+
+require('./autoeat')(bot)
 require('./home')(bot)
+
+require('./chat')(bot)
 
 bot.on('error', (error) => {
   console.error('Bot-Fehler:', error)

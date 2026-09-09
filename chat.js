@@ -1,6 +1,5 @@
 const { askAI } = require('./ai')
 const { goals } = require('mineflayer-pathfinder')
-
 const MAX_CHAT_LENGTH = 240
 
 let isThinking = false
@@ -74,7 +73,7 @@ module.exports = (bot) => {
     const normalizedMessage = normalizeText(message)
     const addressedMatch = message
       .trim()
-      .match(BOT_NAME)
+      .match(/^sandro\s*,?\s*(.+)$/i)
 
     /*
      * Zuhause:
@@ -362,10 +361,14 @@ module.exports = (bot) => {
       console.log(answer)
       console.log('===== KI ANTWORT ENDE =====')
 
-      for (const responseMessage of splitForMinecraft(answer)) {
-        bot.chat(responseMessage)
-        await new Promise(resolve => setTimeout(resolve, 1200))
-      }
+for (const responseMessage of splitForMinecraft(answer)) {
+  console.log('[KI SEND]', responseMessage)
+  bot.chat(responseMessage)
+
+  await new Promise(resolve =>
+    setTimeout(resolve, 2000)
+  )
+}
     } catch (error) {
       console.error('KI-Fehler:', error)
       bot.chat('KI Fehler')

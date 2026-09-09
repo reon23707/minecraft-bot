@@ -2,3 +2,4 @@ git add .
 git commit*-m "Initial commit"
 node_modules/
 .env
+alt/
